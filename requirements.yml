@@ -1,0 +1,6 @@
+roles:
+  - name: vandycknick.dotfiles
+  - name: vandycknick.python
+
+collections:
+  - name: vandycknick.terminal

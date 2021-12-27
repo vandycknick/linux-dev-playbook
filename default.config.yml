@@ -1,0 +1,51 @@
+home: "{{ ansible_env.HOME }}"
+
+xdg_bin: "{{ home }}/.local/bin"
+xdg_config_home: "{{ home }}/.config"
+xdg_data_home: "{{ home }}/.local/share"
+xdg_cache_home: "{{ home }}/.cache"
+
+st_patch_libxft: true
+st_default_terminal_emulator: true
+
+keys:
+  - https://apt.releases.hashicorp.com/gpg
+
+repositories:
+  - "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+
+packages:
+  - neovim
+
+  - curl
+  - wget
+  - make
+  - jq
+  - htop
+  - bpftrace
+  - gnupg
+
+  # Less source highlighting
+  - source-highlight
+  - libsource-highlight-common
+
+  - vagrant
+  - packer
+
+vscode_extensions:
+  - ms-dotnettools.csharp
+  - ms-python.python
+  - ms-python.vscode-pylance
+  - ms-azuretools.vscode-docker
+  - eamodio.gitlens
+  - jtlowe.vscode-icon-theme
+  - dbaeumer.vscode-eslint
+  - esbenp.prettier-vscode
+  - streetsidesoftware.code-spell-checker
+  - github.vscode-pull-request-github
+  - editorconfig.editorconfig
+  - monokai.theme-monokai-pro-vscode
+  - pflannery.vscode-versionlens
+  - golang.go
+  - matklad.rust-analyzer
+  - hashicorp.terraform

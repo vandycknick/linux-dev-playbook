@@ -1,0 +1,22 @@
+- name: Apt Update registry
+  apt:
+    update_cache: yes
+  become: true
+
+- name: Add apt keys
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items: "{{ keys }}"
+
+- name: Add extra repositories
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items: "{{ repositories }}"
+
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+  become: true
+  with_items: "{{ packages }}"
