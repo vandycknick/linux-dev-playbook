@@ -17,6 +17,7 @@ repositories:
 packages:
   - neovim
 
+  - xclip
   - curl
   - wget
   - make
