@@ -16,3 +16,12 @@
     - import_tasks: tasks/packages.yml
       tags:
         - packages
+
+    - name: Install vscode extensions
+      vscode_extension:
+        name: "{{ item }}"
+        extensions_dir: "{{ xdg_data_home }}/vscode/extensions"
+        state: present
+      with_items: "{{ vscode_extensions }}"
+      tags:
+        - vscode

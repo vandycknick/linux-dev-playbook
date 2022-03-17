@@ -10,11 +10,21 @@ st_default_terminal_emulator: true
 
 keys:
   - https://apt.releases.hashicorp.com/gpg
+  - https://packages.microsoft.com/keys/microsoft.asc # https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions
+  - https://dl.yarnpkg.com/debian/pubkey.gpg
 
 repositories:
-  - "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+  - repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+    filename: hashicorp
+
+  - repo: "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main"
+    filename: vscode
+
+  - repo: "deb https://dl.yarnpkg.com/debian/ stable main"
+    filename: yarn
 
 packages:
+  - code
   - neovim
 
   - xclip
@@ -26,10 +36,6 @@ packages:
   - bpftrace
   - gnupg
 
-  # Less source highlighting
-  - source-highlight
-  - libsource-highlight-common
-
   - vagrant
   - packer
 
@@ -39,14 +45,15 @@ vscode_extensions:
   - ms-python.vscode-pylance
   - ms-azuretools.vscode-docker
   - eamodio.gitlens
+  - zhuangtongfa.material-theme
   - jtlowe.vscode-icon-theme
   - dbaeumer.vscode-eslint
   - esbenp.prettier-vscode
   - streetsidesoftware.code-spell-checker
   - github.vscode-pull-request-github
   - editorconfig.editorconfig
-  - monokai.theme-monokai-pro-vscode
   - pflannery.vscode-versionlens
   - golang.go
   - matklad.rust-analyzer
   - hashicorp.terraform
+  - denoland.vscode-deno

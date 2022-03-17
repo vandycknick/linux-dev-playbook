@@ -11,9 +11,16 @@
 
 - name: Add extra repositories
   apt_repository:
-    repo: "{{ item }}"
+    repo: "{{ item.repo }}"
+    filename: "{{ item.filename }}"
     state: present
+  become: true
   with_items: "{{ repositories }}"
+
+- name: Apt Update registry
+  apt:
+    update_cache: yes
+  become: true
 
 - name: Install packages
   apt:
