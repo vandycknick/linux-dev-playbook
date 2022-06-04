@@ -57,3 +57,4 @@ vscode_extensions:
   - rust-lang.rust-analyzer
   - hashicorp.terraform
   - denoland.vscode-deno
+  - redhat.ansible
