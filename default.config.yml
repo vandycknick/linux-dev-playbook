@@ -54,6 +54,6 @@ vscode_extensions:
   - editorconfig.editorconfig
   - pflannery.vscode-versionlens
   - golang.go
-  - matklad.rust-analyzer
+  - rust-lang.rust-analyzer
   - hashicorp.terraform
   - denoland.vscode-deno
