@@ -3,11 +3,22 @@
     update_cache: yes
   become: true
 
-- name: Add apt keys
-  apt_key:
-    url: "{{ item }}"
-    state: present
-  with_items: "{{ keys }}"
+- name: Install keyring
+  shell: |
+    curl -fsSL {{ item.key }} | gpg --dearmor -o /usr/share/keyrings/{{ item.filename }}.gpg
+    gpg --no-default-keyring  --keyring /usr/share/keyrings/{{ item.filename }}.gpg --list-keys "{{ item.fingerprint }}" 2> /dev/null
+    valid_key=$?
+
+    if [ "$valid_key" -gt 0 ]; then
+      >&2 echo "GPG Key not matching fingerprint!"
+      rm /usr/share/keyrings/{{ item.filename }}.gpg
+    fi
+
+    exit "$valid_key"
+  args:
+    creates: /usr/share/keyrings/{{ item.filename }}.gpg
+  become: true
+  with_items: "{{ repositories }}"
 
 - name: Add extra repositories
   apt_repository:
