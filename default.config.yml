@@ -43,6 +43,11 @@ packages:
   - packer
   - ripgrep
 
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose-plugin
+
 vscode_extensions:
   - ms-dotnettools.csharp
   - ms-python.python
