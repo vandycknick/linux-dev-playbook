@@ -12,7 +12,7 @@ pyenv_global_python: "3.11.1"
 repositories:
   - repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
     key: https://apt.releases.hashicorp.com/gpg
-    fingerprint: "E8A0 32E0 94D8 EB4E A189 D270 DA41 8C88 A321 9F7B"
+    fingerprint: "798A EC65 4E5C 1542 8C8E 42EE AA16 FCBC A621 E701"
     filename: hashicorp
 
   - repo: "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/code stable main"
