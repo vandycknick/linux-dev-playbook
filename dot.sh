@@ -6,7 +6,7 @@ echo "[i] Ask for sudo password"
 sudo -v
 
 # shellcheck source=/dev/null
-. /etc/os-release
+# . /etc/os-release
 
 ansible-galaxy install -r requirements.yml
 

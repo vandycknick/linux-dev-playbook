@@ -1,4 +1,4 @@
-- name: Linux Dev Machine Setup Playbook
+- name: Dev Machine Setup
   hosts: all
   gather_facts: yes
 
@@ -7,21 +7,49 @@
 
   roles:
     - role: vandycknick.dotfiles
-    - role: vandycknick.python
-    - role: vandycknick.terminal.st
+    # - role: vandycknick.python
+    # - role: vandycknick.terminal.st
     - role: vandycknick.terminal.zsh
     - role: vandycknick.terminal.tmux
 
   tasks:
-    - import_tasks: tasks/packages.yml
-      tags:
-        - packages
+    - name: Check NVM is cloned
+      stat:
+        path: /Users/nickvd/.local/share/nvm/.git
+      register: nvm_git_folder
 
-    - name: Install vscode extensions
-      vscode_extension:
+    - name: Install NVM
+      shell: |
+        export NVM_DIR="$XDG_DATA_HOME/nvm" && (
+          git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+          cd "$NVM_DIR"
+          git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+        ) && \. "$NVM_DIR/nvm.sh"
+      when: nvm_git_folder.stat.isdir is not defined or not nvm_git_folder.stat.isdir
+
+    # - name: Install Latest Node
+    #   shell: |
+    #     nvm install --lts
+
+    - name: Install Packages
+      community.general.homebrew:
         name: "{{ item }}"
-        extensions_dir: "{{ xdg_data_home }}/vscode/extensions"
         state: present
-      with_items: "{{ vscode_extensions }}"
-      tags:
-        - vscode
+      loop:
+        - awscli
+        - bat
+        - coreutils
+        - eza
+        - fzf
+        - golang
+        - google-cloud-sdk
+        - helm
+        - iterm2
+        - k9s
+        - kubectl
+        - pipx
+        - ripgrep
+        - spotify
+        - session-manager-plugin # AWS Session Manager Plugin
+        - tokei
+        - zed
